@@ -3,8 +3,10 @@ class InviteController < ApplicationController
 
   def purchase
     amount = params[:subtotal] || 15
+    email = params[:email] ? params[:email] : 'si+gift-cards@talkable.com'
+
     @purchase = {
-      email: params[:email] || 'si+gift-cards@talkable.com',
+      email: email,
       order_number: rand(0..10000000),
       subtotal: amount,
       campaign_tags: 'default',
@@ -13,19 +15,16 @@ class InviteController < ApplicationController
       }
     }
 
-    # Talkable::API::Origin.create(Talkable::API::Origin::PURCHASE, @purchase)
+    Talkable::API::Origin.create(Talkable::API::Origin::PURCHASE, @purchase)
   end
 
   def show
-    # Make sure you have configured Campaign Placements at Talkable site
-    # or explicitly specify campaign tags
-    # origin = Talkable.register_affiliate_member(campaign_tags: 'invite')
+    @email = params[:email] ? params[:email] : 'si+gift-cards@talkable.com'
+
     origin = Talkable.register_affiliate_member({
-      email: params[:email] || 'si+gift-cards@talkable.com',
-      custom_properties: {
-        amount: 0
-      }
+      email: @email
     })
+
     @invite_offer = origin.offer if origin
   end
 end
