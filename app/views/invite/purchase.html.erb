@@ -1,0 +1,15 @@
+<h1>Thank you for purchasing a Gift Card of <%= @purchase[:subtotal] %> to your friend:</h1>
+<ul>
+  <li>
+    Order number: <code><%= @purchase[:order_number] %></code>
+  </li>
+  <li>
+    Subtotal: <code>$<%= @purchase[:subtotal] %></code>
+  </li>
+  <li>
+    Friend’s email: <code><%= @purchase[:email] %></code>
+  </li>
+</ul>
+
+<p>Your friend will receive the Gift Card to their email address: <%= @purchase[:email] %> in a moment.</p>
+<p>Thanks!</p>
