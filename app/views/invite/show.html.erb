@@ -1,3 +1,10 @@
 Logged in as <%= @email %>
+
+<%- if @error %>
+  <p>
+    <strong><%= @error %></strong>
+  </p>
+<%- end %>
+
 <div id="talkable-inline-offer-container"></div>
 <%= render 'shared/talkable_offer', offer: @invite_offer, options: {iframe: {container: 'talkable-inline-offer-container'}} %>

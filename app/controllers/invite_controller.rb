@@ -20,11 +20,15 @@ class InviteController < ApplicationController
 
   def show
     @email = params[:email] ? params[:email] : 'si+gift-cards@talkable.com'
+    person = Talkable::API::Person.find(@email)
+    return unless person
 
     origin = Talkable.register_affiliate_member({
       email: @email
     })
 
     @invite_offer = origin.offer if origin
+  rescue
+    @error = "You do not have any Gift Cards."
   end
 end
